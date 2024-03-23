@@ -75,8 +75,7 @@
 			off = function() {
 
 				$bg
-					.addClass('fixed')
-					.css('transform', 'none');
+					.addClass('fixed');
 
 				$window
 					.off('scroll._parallax');

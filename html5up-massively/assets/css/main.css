@@ -3375,6 +3375,7 @@ table.alt tbody tr td {
 	position: fixed;
 	width: 100vw;
 	height: 100vh;
+	transform: translateY(150px);
 }
 
 #wrapper.fade-in:before {
@@ -3440,6 +3441,7 @@ body.is-preload #wrapper.fade-in:before {
 	text-align: center;
 	z-index: 1;
 	min-height: 100vh;
+	transform: translateY(-300px);
 }
 
 #intro input,
