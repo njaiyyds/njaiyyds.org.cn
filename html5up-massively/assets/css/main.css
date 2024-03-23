@@ -4862,3 +4862,19 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
 	}
 
 }
+
+.namecard {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	justify-content: space-around;
+	padding: 1rem;
+}
+
+.namecard img {
+	margin-right: 1rem; max-width: 50%; height: auto;
+}
+
+.namecard .intro {
+	text-align: center;
+}
