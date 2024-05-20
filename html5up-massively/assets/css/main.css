@@ -4871,11 +4871,31 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
 	padding: 1rem;
 }
 
+.namecard h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 400;
+}
+
 .namecard img {
-	margin-right: 1rem; max-width: 50%; height: auto;
+	margin-right: 1rem;
+	max-width: 50%;
+	height: auto;
 }
 
 .namecard .intro {
 	text-align: center;
 }
 
+.namecards {
+	display: grid;
+}
+
+/* @media (min-width: 800px) { */
+	.namecards {
+		grid-template-columns: auto auto;
+	}
+/* } */
