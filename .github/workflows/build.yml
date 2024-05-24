@@ -1,0 +1,30 @@
+name: Build and Deploy Racket Project
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Racket
+      uses: Bogdanp/setup-racket@v1.11
+      with:
+        version: 'stable'    
+
+    - name: Install scripty package
+      run: raco pkg install scripty
+
+    - name: Execute make.rkt
+      run: racket ./make.rkt
+
+    - name: Upload build to Cloudflare Pages
+      uses: cloudflare/pages-action@v1
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        projectName: njaiyyds
+        directory: ./build
