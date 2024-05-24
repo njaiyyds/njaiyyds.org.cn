@@ -43,7 +43,7 @@
 ;;; Common elements
 
 (define (navbar active)
-  (let* ([entries '(("/index.html" "NJAI") ("/generic.html" "活动策划") ("/elements.html" "服务与支持") ("/about.html" "关于我们"))]
+  (let* ([entries '(("/index.html" "NJAI") ("/activity.html" "活动与策划") ("/service.html" "服务与支持") ("/about.html" "关于我们"))]
          [lis (map (lambda (entry)
                      (let ([href (first entry)]
                            [text (second entry)])

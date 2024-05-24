@@ -14,3 +14,9 @@
 
 (require "about.rkt")
 (write-string-to-file "build/about.html" (render:about))
+
+(require "activity.rkt")
+(write-string-to-file "build/activity.html" (render:activity))
+
+(require "service.rkt")
+(write-string-to-file "build/service.html" (render:service))
