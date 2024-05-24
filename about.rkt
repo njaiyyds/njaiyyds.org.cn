@@ -1,7 +1,3 @@
-#!/usr/bin/env racket
-#lang scripty                              ; \ script preamble
-#:dependencies '("base" "html-writing") ; /
------------------
 #lang racket/base
 
 (require html-writing)

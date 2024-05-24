@@ -1,4 +1,7 @@
-#! /usr/bin/env racket
+#!/usr/bin/env racket
+#lang scripty
+#:dependencies '("base" "html-writing")
+-----------------
 #lang racket/base
 
 (require racket/file)
