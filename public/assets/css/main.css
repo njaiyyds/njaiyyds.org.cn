@@ -244,7 +244,7 @@ body,
 input,
 select,
 textarea {
-	font-family: "Merriweather", Georgia, serif;
+	/* font-family: "Merriweather", Georgia, serif; */
 	font-weight: 300;
 	font-size: 1rem;
 	line-height: 2.375;
@@ -4892,10 +4892,5 @@ h6 {
 
 .namecards {
 	display: grid;
+	grid-template-columns: auto auto;
 }
-
-/* @media (min-width: 800px) { */
-	.namecards {
-		grid-template-columns: auto auto;
-	}
-/* } */

@@ -1,7 +1,7 @@
 #lang racket/base
 
 (require html-writing)
-(require "utils.rkt")
+(require "common.rkt")
 
 (define (namecard name school intro pic)
   `(div (@ (class "namecard"))
@@ -12,7 +12,9 @@
              (h3 ,school))))
 
 (define (render:about)
-  (use-template "about.html.tml"
+  (use-template "about.html.tmpl"
+                "##NAVBAR##" (xexp->html (navbar "/about.html"))
+                "##CONTACTS_ICON##" (xexp->html (contacts-icon))
                 "##NAMECARD##" (xexp->html `(,(namecard "王梓铨" "主席" "南京外国语学校" "/images/portrait/wzq.jpg")
                                              ,(namecard "栾兆宸" "公关助理" "南京外国语学校中加国际高中" "/images/portrait/lzc.jpg")
                                              ,(namecard "周熙皓" "外联专员" "南京市金陵中学" "/images/portrait/zxh.jpg")

@@ -2,12 +2,15 @@
 #lang racket/base
 
 (require racket/file)
-(require "utils.rkt")
+(require "common.rkt")
 
 (if (directory-exists? "build")
     (delete-directory/files "build")
     (void))
 (copy-directory/files "public" "build")
+
+(require "index.rkt")
+(write-string-to-file "build/index.html" (render:index))
 
 (require "about.rkt")
 (write-string-to-file "build/about.html" (render:about))
