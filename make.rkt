@@ -6,7 +6,7 @@
 
 (if (directory-exists? "build")
     (delete-directory/files "build")
-    (make-directory "build"))
+    (void))
 (copy-directory/files "public" "build")
 
 (require "about.rkt")
