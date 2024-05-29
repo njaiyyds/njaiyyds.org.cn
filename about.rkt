@@ -15,6 +15,12 @@
   (use-template "about.html.tmpl"
                 "##NAVBAR##" (xexp->html (navbar "/about.html"))
                 "##CONTACTS_ICON##" (xexp->html (contacts-icon))
+                "##INITIAL##"
+                (xexp->html
+                 (styled-article-nodate
+                  "我们的初心"
+                  "南京中学生影像联盟初心是为广大的中学生摄影、摄像爱好者建立交流互助的平台。通过活动、比赛等提高中学生的审美价值观，陶治情操，为中学生生活增光添彩。南京中学生影像联盟不以利润为目的，更多的是用爱发电。影像是新时代的媒介，南京中学生影像联盟也正希望通过这种媒介，进一步帮助南京中学生表现自我，提升自我，永葆对影像的无限热爱。"
+                  ""))
                 "##NAMECARD##"
                 (xexp->html
                  `(div (@ (class "gallery-container"))

@@ -74,7 +74,13 @@
   `(article (@ (class "post"))
     (header (@ (class "major"))
       (span (@ (class "date")) ,date)
-      (h2 (a (@ (href ,url)) ,title)))
+      (h1 ,(if (string=? url "") title `(a (@ (href ,url)) ,title))))
     ,content))
 
-(provide navbar contacts-icon styled-article)
+(define (styled-article-nodate title content url)
+  `(article (@ (class "post"))
+    (header (@ (class "major"))
+      (h1 ,(if (string=? url "") title `(a (@ (href ,url)) ,title))))
+    ,content))
+
+(provide navbar contacts-icon styled-article styled-article-nodate)
