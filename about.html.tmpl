@@ -14,6 +14,31 @@
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
+
+	<style>
+		.gallery-container {
+			display: flex;
+			overflow-x: scroll;
+			padding: 20px;
+		}
+
+		.gallery-item {
+			display: inline-block;
+			margin-right: 10px;
+			text-align: center;
+		}
+
+		.gallery-item img {
+			display: block;
+			height: 300px;
+		}
+
+		.gallery-item p {
+			margin-top: 5px;
+			font-size: 16px;
+			color: #333;
+		}
+	</style>
 </head>
 
 <body style="background-color: #e5e5e5;">
@@ -55,9 +80,7 @@
 					<h3>南京中学生影像联盟第一届组委会及创始人</h3>
 				</header>
 
-				<div class="namecards">
-					##NAMECARD##
-				</div>
+				##NAMECARD##
 			</section>
 
 			<!-- Featured Post -->
@@ -153,80 +176,53 @@
 							</section> -->
 
 			<!-- Footer -->
-			<!-- <footer>
-								<div class="pagination">
-									<a href="#" class="previous">Prev</a>
-									<a href="#" class="page active">1</a>
-									<a href="#" class="page">2</a>
-									<a href="#" class="page">3</a>
-									<span class="extra">&hellip;</span>
-									<a href="#" class="page">8</a>
-									<a href="#" class="page">9</a>
-									<a href="#" class="page">10</a>
-									<a href="#" class="next">Next</a>
-								</div>
-							</footer> -->
-
 		</div>
 
 		<!-- Footer -->
 		<footer id="footer">
-			<!-- <section>
-				<form method="post" action="#">
-					<div class="fields">
-						<div class="field">
-							<label for="name">Name</label>
-							<input type="text" name="name" id="name" />
-						</div>
-						<div class="field">
-							<label for="email">Email</label>
-							<input type="text" name="email" id="email" />
-						</div>
-						<div class="field">
-							<label for="message">Message</label>
-							<textarea name="message" id="message" rows="3"></textarea>
-						</div>
-					</div>
-					<ul class="actions">
-						<li><input type="submit" value="Send Message" /></li>
-					</ul>
-				</form>
-			</section> -->
 			<section class="split contact">
-				<section class="alt">
-					<h3>Address</h3>
-					<p>1234 Somewhere Road #87257<br />
-						Nashville, TN 00000-0000</p>
+				<!-- (define (contacts-icon)
+  '(section
+    (h3 "联系方式")
+    (ul (@ (class "icons alt"))
+        (li (a (@ (href "http://weixin.qq.com/r/0xxgZYLEe0oHKMYGb0lX") (class "icon brands alt fa-weixin")) (span (@ (class "label")) "Wechat")))
+        (li (a (@ (href "https://500px.com.cn/n/m/tribe/1201bd676e3b4e5e95b6335dcebf91ef") (class "icon brands alt fa-500px")) (span (@ (class "label")) "500px")))
+        (li (a (@ (href "https://space.bilibili.com/1714334678") (class "icon brands alt fa-bilibili")) (span (@ (class "label")) "Bilibili")))
+        (li (a (@ (href "mailto:njaiyyds@163.com") (class "icon solid fa-envelope")) (span (@ (class "label")) "Email")))
+        (li (a (@ (href "#") (class "icon solid fa-shop")) (span (@ (class "label")) "Email")))
+        (li (a (@ (href "https://www.xiaohongshu.com/user/profile/6494520a000000000f0078df")) "xhs"))))) -->
+
+				<section>
+					<h3>Mail</h3>
+					<p><a href="mailto:njaiyyds@163.com">njaiyyds@163.com</a></p>
 				</section>
 				<section>
-					<h3>Phone</h3>
-					<p><a href="#">(000) 000-0000</a></p>
+					<h3>微信</h3>
+					<p>
+						<img alt="NJAI影像"
+							src="https://mp.weixin.qq.com/mp/qrcode?scene=10000005&size=102&__biz=Mzg4ODk4MTEzOQ==&mid=2247484157&idx=1&sn=9cc28e3820348b6dbc6d8ae0b7756216&send_time="></img>
+						
+					</p>
+					<p>NJAI影像公众号</p>
 				</section>
 				<section>
-					<h3>Email</h3>
-					<p><a href="#">info@untitled.tld</a></p>
+					<h3>500px</h3>
+					<p><a href="https://500px.com.cn/n/m/tribe/1201bd676e3b4e5e95b6335dcebf91ef">南京中学生影像联盟@500px</a></p>
 				</section>
 				<section>
-					<h3>Social</h3>
-					<ul class="icons alt">
-						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a>
-						</li>
-						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a>
-						</li>
-						<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-					</ul>
+					<h3>哔哩哔哩</h3>
+					<p><a href="https://space.bilibili.com/1714334678">南京中学生影像联盟@哔哩哔哩</a></p>
+				</section>
+				<section>
+					<h3>小红书</h3>
+					<p><a href="https://www.xiaohongshu.com/user/profile/6494520a000000000f0078df">南京中学生影像联盟@小红书</a></p>
+				</section>
+				<section>
+					<h3>小店</h3>
+					<p><a href="#">南京中学生影像联盟小店</a></p>
 				</section>
 			</section>
 		</footer>
-
-		<!-- Copyright -->
-		<div id="copyright">
-			<ul>
-				<li>&copy; Untitled</li>
-				<li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
-			</ul>
-		</div>
 
 	</div>
 

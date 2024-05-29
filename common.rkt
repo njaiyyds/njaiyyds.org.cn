@@ -62,9 +62,19 @@
   '(section
     (h3 "联系方式")
     (ul (@ (class "icons alt"))
-        (li (a (@ (href "#") (class "icon brands alt fa-twitter")) (span (@ (class "label")) "Twitter")))
-        (li (a (@ (href "#") (class "icon brands alt fa-facebook-f")) (span (@ (class "label")) "Facebook")))
-        (li (a (@ (href "#") (class "icon brands alt fa-instagram")) (span (@ (class "label")) "Instagram")))
-        (li (a (@ (href "#") (class "icon brands alt fa-github")) (span (@ (class "label")) "GitHub"))))))
+        (li (a (@ (href "http://weixin.qq.com/r/0xxgZYLEe0oHKMYGb0lX") (class "icon brands alt fa-weixin")) (span (@ (class "label")) "Wechat")))
+        (li (a (@ (href "https://500px.com.cn/n/m/tribe/1201bd676e3b4e5e95b6335dcebf91ef") (class "icon brands alt fa-500px")) (span (@ (class "label")) "500px")))
+        (li (a (@ (href "https://space.bilibili.com/1714334678") (class "icon brands alt fa-bilibili")) (span (@ (class "label")) "Bilibili")))
+        (li (a (@ (href "mailto:njaiyyds@163.com") (class "icon solid fa-envelope")) (span (@ (class "label")) "Email")))
+        (li (a (@ (href "#") (class "icon solid fa-shop")) (span (@ (class "label")) "Email")))
+        (li (a (@ (href "https://www.xiaohongshu.com/user/profile/6494520a000000000f0078df")) "xhs")))))
 
-(provide navbar contacts-icon)
+
+(define (styled-article date title content url)
+  `(article (@ (class "post"))
+    (header (@ (class "major"))
+      (span (@ (class "date")) ,date)
+      (h2 (a (@ (href ,url)) ,title)))
+    ,content))
+
+(provide navbar contacts-icon styled-article)

@@ -15,7 +15,7 @@ jobs:
       with:
         version: 'stable'    
 
-    - name: Install scripty package
+    - name: Install dependencies
       run: yes Y | raco pkg install html-writing
 
     - name: Execute make.rkt
