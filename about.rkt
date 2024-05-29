@@ -15,6 +15,7 @@
   (use-template "about.html.tmpl"
                 "##NAVBAR##" (xexp->html (navbar "/about.html"))
                 "##CONTACTS_ICON##" (xexp->html (contacts-icon))
+                "##LICENSE##" (xexp->html (cr-footer))
                 "##INITIAL##"
                 (xexp->html
                  (styled-article-nodate

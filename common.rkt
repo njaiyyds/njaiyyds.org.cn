@@ -4,6 +4,7 @@
 (require racket/list)
 (require racket/file)
 (require racket/path)
+(require racket/date)
 
 ;;; Utility functions
 
@@ -59,28 +60,47 @@
                )))))
 
 (define (contacts-icon)
-  '(section
-    (h3 "联系方式")
-    (ul (@ (class "icons alt"))
-        (li (a (@ (href "http://weixin.qq.com/r/0xxgZYLEe0oHKMYGb0lX") (class "icon brands alt fa-weixin")) (span (@ (class "label")) "Wechat")))
-        (li (a (@ (href "https://500px.com.cn/n/m/tribe/1201bd676e3b4e5e95b6335dcebf91ef") (class "icon brands alt fa-500px")) (span (@ (class "label")) "500px")))
-        (li (a (@ (href "https://space.bilibili.com/1714334678") (class "icon brands alt fa-bilibili")) (span (@ (class "label")) "Bilibili")))
-        (li (a (@ (href "mailto:njaiyyds@163.com") (class "icon solid fa-envelope")) (span (@ (class "label")) "Email")))
-        (li (a (@ (href "#") (class "icon solid fa-shop")) (span (@ (class "label")) "Email")))
-        (li (a (@ (href "https://www.xiaohongshu.com/user/profile/6494520a000000000f0078df")) "xhs")))))
+  '(footer (@ (id "footer"))
+           (section
+            (h3 "联系方式")
+            (ul (@ (class "icons alt"))
+                (li (a (@ (href "http://weixin.qq.com/r/0xxgZYLEe0oHKMYGb0lX") (class "icon brands alt fa-weixin")) (span (@ (class "label")) "Wechat")))
+                (li (a (@ (href "https://500px.com.cn/n/m/tribe/1201bd676e3b4e5e95b6335dcebf91ef") (class "icon brands alt fa-500px")) (span (@ (class "label")) "500px")))
+                (li (a (@ (href "https://space.bilibili.com/1714334678") (class "icon brands alt fa-bilibili")) (span (@ (class "label")) "Bilibili")))
+                (li (a (@ (href "mailto:njaiyyds@163.com") (class "icon solid fa-envelope")) (span (@ (class "label")) "Email")))
+                (li (a (@ (href "#") (class "icon solid fa-shop")) (span (@ (class "label")) "Email")))
+                (li (a (@ (href "https://www.xiaohongshu.com/user/profile/6494520a000000000f0078df")) "xhs"))))))
 
 
 (define (styled-article date title content url)
   `(article (@ (class "post"))
-    (header (@ (class "major"))
-      (span (@ (class "date")) ,date)
-      (h1 ,(if (string=? url "") title `(a (@ (href ,url)) ,title))))
-    ,content))
+            (header (@ (class "major"))
+                    (span (@ (class "date")) ,date)
+                    (h1 ,(if (string=? url "") title `(a (@ (href ,url)) ,title))))
+            ,content))
 
 (define (styled-article-nodate title content url)
   `(article (@ (class "post"))
-    (header (@ (class "major"))
-      (h1 ,(if (string=? url "") title `(a (@ (href ,url)) ,title))))
-    ,content))
+            (header (@ (class "major"))
+                    (h1 ,(if (string=? url "") title `(a (@ (href ,url)) ,title))))
+            ,content))
 
-(provide navbar contacts-icon styled-article styled-article-nodate)
+(define (cr-footer)
+  (let ([current-year-str (number->string (date-year (current-date)))])
+    `(div (@ (id "copyright"))
+          (h5
+           "本网站使用了 "
+           (a (@ (href "https://html5up.net")) "HTML5 UP")
+           " 的模板，依据 "
+           (a (@ (href "https://creativecommons.org/licenses/by/3.0/")) "CC BY 3.0")
+           " 许可协议授权，由 "
+           (strong "南京中学生影像联盟")
+           " 修改并版权所有")
+          (h5 "Copyright © "
+              ,current-year-str
+              " 南京中学生影像联盟"))))
+
+(define (common-footer)
+  (list (contacts-icon) (cr-footer)))
+
+(provide navbar contacts-icon styled-article styled-article-nodate cr-footer common-footer)

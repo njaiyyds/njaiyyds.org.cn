@@ -4578,12 +4578,11 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
 #copyright input,
 #copyright select,
 #copyright textarea {
-	color: #ffffff;
+	color: gray;
 }
 
 #copyright a {
-	color: #ffffff;
-	border-bottom-color: rgba(255, 255, 255, 0.5);
+	color: gray;
 }
 
 #copyright a:hover {
@@ -4593,7 +4592,7 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
 
 #copyright strong,
 #copyright b {
-	color: #ffffff;
+	color: black;
 }
 
 #copyright h1,
@@ -4602,20 +4601,15 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
 #copyright h4,
 #copyright h5,
 #copyright h6 {
-	color: #ffffff;
+	color: gray;
 }
 
 #copyright blockquote {
-	border-left-color: #ffffff;
-}
-
-#copyright code {
-	background: rgba(255, 255, 255, 0.075);
-	border-color: #ffffff;
+	border-left-color: gray;
 }
 
 #copyright hr {
-	border-bottom-color: #ffffff;
+	border-bottom-color: gray;
 }
 
 #copyright a {

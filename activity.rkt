@@ -6,6 +6,6 @@
 (define (render:activity)
   (use-template "activity.html.tmpl"
                 "##NAVBAR##" (xexp->html (navbar "/activity.html"))
-                "##CONTACTS_ICON##" (xexp->html (contacts-icon))))
+                "##FOOTER##" (xexp->html (common-footer))))
 
 (provide render:activity)
