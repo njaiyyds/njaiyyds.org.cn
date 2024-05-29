@@ -21,10 +21,7 @@ jobs:
     - name: Execute make.rkt
       run: racket ./make.rkt
 
-    - name: Upload build to Cloudflare Pages
-      uses: cloudflare/pages-action@v1
+    - name: Upload build to GitHub pages
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        projectName: njaiyyds
-        directory: ./build
+        folder: build
