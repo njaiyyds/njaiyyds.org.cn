@@ -3438,7 +3438,7 @@ body.is-preload #wrapper.fade-in:before {
 	-moz-justify-content: -moz-flex-end;
 	-webkit-justify-content: -webkit-flex-end;
 	-ms-justify-content: -ms-flex-end;
-	justify-content: flex-end;
+	justify-content: center;
 	-moz-transition: opacity 1s ease, -moz-transform 1s ease;
 	-webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
 	-ms-transition: opacity 1s ease, -ms-transform 1s ease;
@@ -3448,7 +3448,7 @@ body.is-preload #wrapper.fade-in:before {
 	text-align: center;
 	z-index: 1;
 	min-height: 100vh;
-	transform: translateY(-300px);
+	/* transform: translateY(-300px); */
 }
 
 #intro input,
