@@ -38,6 +38,56 @@
 		<!-- Main -->
 		<div id="main">
 
+			<form method="post" enctype="multipart/form-data">
+				<div class="fields">
+					<div class="field">
+						<label for="image">图像</label>
+						<input type="file" name="image" id="image" accept="image/*" />
+					</div>
+					<div class="field">
+						<label for="name">作品名</label>
+						<input type="text" name="name" id="name" />
+					</div>
+					<div class="field">
+						<label for="author">作者</label>
+						<input type="text" name="author" id="author" />
+					</div>
+					<div class="field">
+						<label for="description">描述</label>
+						<textarea name="description" id="description" rows="4" minlength="100"></textarea>
+					</div>
+				</div>
+				<ul class="actions">
+					<li><input type="submit" value="提交" id="submitButton" /></li>
+				</ul>
+			</form>
+
+			<script>
+				document.querySelector('form').addEventListener('submit', function(event) {
+					event.preventDefault();
+				
+					var formData = new FormData(event.target);
+				
+					fetch('https://submit.njaiyyds.com.cn', {
+						method: 'POST',
+						body: formData
+					})
+					.then(response => {
+						if (response.status === 200) {
+							document.querySelector('#submitButton').disabled = true;
+						}
+						return response.text();
+					})
+					.then(data => {
+						console.log(data);
+					})
+					.catch(error => {
+						console.error('Error:', error);
+					});
+				});
+				</script>
+
+
 
 			<!-- Posts -->
 			<!-- <section class="posts">
@@ -116,19 +166,6 @@
 							</section> -->
 
 			<!-- Footer -->
-			<!-- <footer>
-								<div class="pagination">
-									<a href="#" class="previous">Prev</a>
-									<a href="#" class="page active">1</a>
-									<a href="#" class="page">2</a>
-									<a href="#" class="page">3</a>
-									<span class="extra">&hellip;</span>
-									<a href="#" class="page">8</a>
-									<a href="#" class="page">9</a>
-									<a href="#" class="page">10</a>
-									<a href="#" class="next">Next</a>
-								</div>
-							</footer> -->
 
 		</div>
 

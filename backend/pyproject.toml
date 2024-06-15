@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "njai-backend"
+version = "0.0.0"
+description = ""
+authors = ["Yi Cao <me@ycao.top>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+exif = "^1.6.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
