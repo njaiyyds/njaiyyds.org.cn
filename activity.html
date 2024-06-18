@@ -51,7 +51,7 @@
 		<div id="main">
 
 			<form method="post" enctype="multipart/form-data">
-				<div class="fields">
+				<fieldset class="fields" required>
 					<div class="field">
 						<label for="image">图像</label>
 						<input type="file" name="image" id="image" accept="image/*" required />
@@ -80,7 +80,7 @@
 						<label for="description">描述（建议100字）</label>
 						<textarea name="description" id="description" rows="4" minlength="10"></textarea>
 					</div>
-				</div>
+				</fieldset>
 
 				<ul class="actions">
 					<li><input type="submit" value="提交" id="submitButton" /></li>
