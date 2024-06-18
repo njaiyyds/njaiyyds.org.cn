@@ -4,8 +4,26 @@ import cgi
 import json
 import uuid
 from pathlib import Path
+import exif
 
-def save_result(result, in_dir=Path.home()):
+def check_exif(image_data):
+    """Check if main exif such as exposure time, aperture, focal length, and ISO are present."""
+    image = exif.Image(image_data)
+    if not image.has_exif:
+        return "无EXIF信息"
+    if not "exposure_time" in dir(image):
+        return "缺少曝光时间"
+    if not "focal_length" in dir(image):
+        return "缺少焦距"
+    if not "model" in dir(image):
+        return "缺少相机型号"
+    if not "datetime" in dir(image):
+        return "缺少拍摄时间"
+    if not "f_number" in dir(image):
+        return "缺少光圈"
+    return None
+
+def save_result(result, in_dir=Path.home() / 'submit'):
     # Generate a unique UUID
     unique_id = str(uuid.uuid4())
 
@@ -81,7 +99,7 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         description_field = form['description']
 
         result = {
-            'image': None,
+            'image': (None, None),
             'name': None,
             'author': None,
             'wechat': None,
@@ -142,6 +160,13 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             return
         result['description'] = description_field.value
 
+        exif_error = check_exif(result['image'][1])
+        if exif_error:
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write(f"图片缺少exif: {exif_error}".encode())
+            return
+        
         save_result(result)
 
         # Send a simple HTML response back
