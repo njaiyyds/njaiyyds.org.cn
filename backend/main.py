@@ -5,7 +5,7 @@ import json
 import uuid
 from pathlib import Path
 
-def save_result(result, in_dir="~/submitted"):
+def save_result(result, in_dir=Path.home()):
     # Generate a unique UUID
     unique_id = str(uuid.uuid4())
 
@@ -19,18 +19,18 @@ def save_result(result, in_dir="~/submitted"):
         'school': result['school'],
         'wechat': result['wechat'],
         'email': result['email'],
-        'image_filename': unique_id + '.' + extension,
+        'image_filename': f"{unique_id}.{extension}",
         'ip': result['ip'],
     }
 
     # Save the metadata to a JSON file
-    metadata_filename = Path(f"{in_dir}/{unique_id}.json")
+    metadata_filename = Path(in_dir) / f"{unique_id}.json"
     metadata_filename.parent.mkdir(exist_ok=True, parents=True)
     with open(metadata_filename, 'w', encoding='utf-8') as json_file:
         json.dump(metadata, json_file, ensure_ascii=False, indent=4)
 
     # Save the image file with the UUID as its filename
-    image_filename = f"{in_dir}/{unique_id}"
+    image_filename = Path(in_dir) / f"{unique_id}.{extension}"
     with open(image_filename, 'wb') as image_file:
         image_file.write(result['image'][1])
 
