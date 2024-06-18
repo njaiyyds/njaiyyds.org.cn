@@ -20,7 +20,11 @@
 		}
 
 		#wrapper>.bg.fixed {
-			transform: translateY(60px);
+			transform: translateY(0);
+		}
+
+		#navPanelToggle {
+			color: white;
 		}
 	</style>
 </head>
@@ -50,35 +54,40 @@
 				<div class="fields">
 					<div class="field">
 						<label for="image">图像</label>
-						<input type="file" name="image" id="image" accept="image/*" required/>
+						<input type="file" name="image" id="image" accept="image/*" required />
 					</div>
 					<div class="field">
 						<label for="name">作品名</label>
-						<input type="text" name="name" id="name" required/>
+						<input type="text" name="name" id="name" required />
 					</div>
 					<div class="field">
 						<label for="author">作者</label>
-						<input type="text" name="author" id="author" required/>
+						<input type="text" name="author" id="author" required />
 					</div>
 					<div class="field">
 						<label for="school">学校</label>
-						<input type="text" name="school" id="school" required/>
+						<input type="text" name="school" id="school" required />
 					</div>
 					<div class="field">
 						<label for="wechat">微信号</label>
-						<input type="text" name="wechat" id="wechat" required/>
+						<input type="text" name="wechat" id="wechat" required />
 					</div>
 					<div class="field">
 						<label for="email">邮箱</label>
-						<input type="email" name="email" id="email" required/>
+						<input type="email" name="email" id="email" required />
 					</div>
 					<div class="field">
 						<label for="description">描述（建议100字）</label>
 						<textarea name="description" id="description" rows="4" minlength="10"></textarea>
 					</div>
 				</div>
+
 				<ul class="actions">
 					<li><input type="submit" value="提交" id="submitButton" /></li>
+					<li>
+						<!-- Error message -->
+						<p id="errorMsg"></p>
+					</li>
 				</ul>
 			</form>
 		</div>
@@ -103,7 +112,9 @@
 			var form = document.querySelector('form');
 			var formData = new FormData(form);
 
-			fetch('https://submit.njaiyyds.com.cn/', {
+			document.getElementById('errorMsg').innerText = "提交中...";
+
+			fetch('https://submit.njaiyyds.org.cn/', {
 				method: 'POST',
 				body: formData,
 				mode: 'cors'
@@ -111,14 +122,13 @@
 				.then(response => {
 					if (response.status === 200) {
 						document.getElementById('submitButton').disabled = true;
+						document.getElementById('errorMsg').innerText = "提交成功";
+						return "";
 					}
-					return response.text(); // Assuming the server returns text
+					return response.text();
 				})
-				.then(data => {
-					console.log(data); // Display the server response
-				})
-				.catch(error => {
-					console.error('Error:', error);
+				.then(display => {
+					document.getElementById('errorMsg').innerText = display;
 				});
 		});
 	</script>
