@@ -34,9 +34,7 @@ def save_result(result, in_dir="~/submitted"):
     with open(image_filename, 'wb') as image_file:
         image_file.write(result['image'][1])
 
-    print(f"Saved metadata to {metadata_filename}")
-    if result['image']:
-        print(f"Saved image to {image_filename}")
+    print(f"Saved metadata to {metadata_filename.absolute()}")
 
     return unique_id
 
