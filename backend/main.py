@@ -3,10 +3,13 @@ import socketserver
 import cgi
 import json
 import uuid
+from pathlib import Path
 
-def save_result(result, in_dir=""):
+def save_result(result, in_dir="~/submitted"):
     # Generate a unique UUID
     unique_id = str(uuid.uuid4())
+
+    extension = result['image'][0].split('.')[-1]
 
     # Prepare the metadata dictionary
     metadata = {
@@ -16,12 +19,13 @@ def save_result(result, in_dir=""):
         'school': result['school'],
         'wechat': result['wechat'],
         'email': result['email'],
-        'image_filename': unique_id,
+        'image_filename': unique_id + '.' + extension,
         'ip': result['ip'],
     }
 
     # Save the metadata to a JSON file
-    metadata_filename = f"{in_dir}/{unique_id}.json"
+    metadata_filename = Path(f"{in_dir}/{unique_id}.json")
+    metadata_filename.parent.mkdir(exist_ok=True, parents=True)
     with open(metadata_filename, 'w', encoding='utf-8') as json_file:
         json.dump(metadata, json_file, ensure_ascii=False, indent=4)
 
@@ -95,14 +99,49 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         else:
             self.send_response(400)
             self.end_headers()
-            self.wfile.write(b"Image field is required")
+            self.wfile.write("需要图片")
             return
 
+        if name_field.value == "":
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write("需要名字")
+            return
         result['name'] = name_field.value
+
+        if author_field.value == "":
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write("需要作者")
+            return
         result['author'] = author_field.value
-        result['school'] = school_field.value
+
+        if wechat_field.value == "":
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write("需要微信")
+            return
         result['wechat'] = wechat_field.value
+
+        if email_field.value == "":
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write("需要邮箱")
+            return
         result['email'] = email_field.value
+
+        if school_field.value == "":
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write("需要学校")
+            return
+        result['school'] = school_field.value
+
+        if description_field.value == "":
+            self.send_response(400)
+            self.end_headers()
+            self.wfile.write("需要描述")
+            return
         result['description'] = description_field.value
 
         save_result(result)
