@@ -150,7 +150,7 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", "text/plain")
         self.end_headers()
-        self.wfile.wfile.write(b"Data received")
+        self.wfile.write(b"Data received")
 
     def end_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")
