@@ -129,6 +129,9 @@
 				})
 				.then(display => {
 					document.getElementById('errorMsg').innerText = display;
+				})
+				.catch(error => {
+					document.getElementById('errorMsg').innerText = "提交失败：" + error;
 				});
 		});
 	</script>
