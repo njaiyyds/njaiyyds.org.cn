@@ -13,6 +13,9 @@ def save_result(result, in_dir=""):
         'name': result['name'],
         'author': result['author'],
         'description': result['description'],
+        'school': result['school'],
+        'wechat': result['wechat'],
+        'email': result['email'],
         'image_filename': unique_id,
         'ip': result['ip'],
     }
@@ -70,12 +73,18 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         image_field = form['image']
         name_field = form['name']
         author_field = form['author']
+        school_field = form['school']
+        wechat_field = form['wechat']
+        email_field = form['email']
         description_field = form['description']
 
         result = {
             'image': None,
             'name': None,
             'author': None,
+            'wechat': None,
+            'email': None,
+            'school': None,
             'description': None,
             'ip': self.client_address[0],
         }
@@ -91,6 +100,9 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
         result['name'] = name_field.value
         result['author'] = author_field.value
+        result['school'] = school_field.value
+        result['wechat'] = wechat_field.value
+        result['email'] = email_field.value
         result['description'] = description_field.value
 
         save_result(result)
@@ -105,7 +117,7 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Origin", "*")
         http.server.SimpleHTTPRequestHandler.end_headers(self)
 
-PORT = 8888
+PORT = 80  # HTTP port
 
 def main():
     with socketserver.TCPServer(("", PORT), SimpleHTTPRequestHandler) as httpd:

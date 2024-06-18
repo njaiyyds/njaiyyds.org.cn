@@ -14,6 +14,15 @@
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
+	<style>
+		#wrapper>.bg {
+			background-image: url("../../images/overlay.png"), linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../../images/bg1.jpg");
+		}
+
+		#wrapper>.bg.fixed {
+			transform: translateY(60px);
+		}
+	</style>
 </head>
 
 <body style="background-color: #e5e5e5;">
@@ -24,10 +33,9 @@
 		##NAVBAR##
 
 		<!-- Intro -->
-		<header id="header">
-			<h1>南京中学生影像联盟</h1>
-			<!-- <p>placeholder</p> -->
-		</header>
+		<div id="intro">
+			<h1 style="color: white;">上传作品</h1>
+		</div>
 
 		<!-- Header -->
 		<!-- <header id="header">
@@ -42,135 +50,41 @@
 				<div class="fields">
 					<div class="field">
 						<label for="image">图像</label>
-						<input type="file" name="image" id="image" accept="image/*" />
+						<input type="file" name="image" id="image" accept="image/*" required/>
 					</div>
 					<div class="field">
 						<label for="name">作品名</label>
-						<input type="text" name="name" id="name" />
+						<input type="text" name="name" id="name" required/>
 					</div>
 					<div class="field">
 						<label for="author">作者</label>
-						<input type="text" name="author" id="author" />
+						<input type="text" name="author" id="author" required/>
 					</div>
 					<div class="field">
-						<label for="description">描述</label>
-						<textarea name="description" id="description" rows="4" minlength="100"></textarea>
+						<label for="school">学校</label>
+						<input type="text" name="school" id="school" required/>
+					</div>
+					<div class="field">
+						<label for="wechat">微信号</label>
+						<input type="text" name="wechat" id="wechat" required/>
+					</div>
+					<div class="field">
+						<label for="email">邮箱</label>
+						<input type="email" name="email" id="email" required/>
+					</div>
+					<div class="field">
+						<label for="description">描述（建议100字）</label>
+						<textarea name="description" id="description" rows="4" minlength="10"></textarea>
 					</div>
 				</div>
 				<ul class="actions">
 					<li><input type="submit" value="提交" id="submitButton" /></li>
 				</ul>
 			</form>
-
-			<script>
-				document.querySelector('form').addEventListener('submit', function(event) {
-					event.preventDefault();
-				
-					var formData = new FormData(event.target);
-				
-					fetch('https://submit.njaiyyds.com.cn', {
-						method: 'POST',
-						body: formData
-					})
-					.then(response => {
-						if (response.status === 200) {
-							document.querySelector('#submitButton').disabled = true;
-						}
-						return response.text();
-					})
-					.then(data => {
-						console.log(data);
-					})
-					.catch(error => {
-						console.error('Error:', error);
-					});
-				});
-				</script>
-
-
-
-			<!-- Posts -->
-			<!-- <section class="posts">
-								<article>
-									<header>
-										<span class="date">April 24, 2017</span>
-										<h2><a href="#">Sed magna<br />
-										ipsum faucibus</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">April 22, 2017</span>
-										<h2><a href="#">Primis eget<br />
-										imperdiet lorem</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">April 18, 2017</span>
-										<h2><a href="#">Ante mattis<br />
-										interdum dolor</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">April 14, 2017</span>
-										<h2><a href="#">Tempus sed<br />
-										nulla imperdiet</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">April 11, 2017</span>
-										<h2><a href="#">Odio magna<br />
-										sed consectetur</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<span class="date">April 7, 2017</span>
-										<h2><a href="#">Augue lorem<br />
-										primis vestibulum</a></h2>
-									</header>
-									<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
-									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
-									</ul>
-								</article>
-							</section> -->
-
-			<!-- Footer -->
-
 		</div>
 
 		##FOOTER##
-		
+
 	</div>
 
 	<!-- Scripts -->
@@ -181,6 +95,33 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+
+	<script>
+		document.getElementById('submitButton').addEventListener('click', function (event) {
+			event.preventDefault(); // Prevent the form from submitting normally
+
+			var form = document.querySelector('form');
+			var formData = new FormData(form);
+
+			fetch('https://submit.njaiyyds.com.cn/', {
+				method: 'POST',
+				body: formData,
+				mode: 'cors'
+			})
+				.then(response => {
+					if (response.status === 200) {
+						document.getElementById('submitButton').disabled = true;
+					}
+					return response.text(); // Assuming the server returns text
+				})
+				.then(data => {
+					console.log(data); // Display the server response
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		});
+	</script>
 
 </body>
 
