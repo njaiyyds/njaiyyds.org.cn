@@ -99,48 +99,48 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         else:
             self.send_response(400)
             self.end_headers()
-            self.wfile.write("需要图片")
+            self.wfile.write("需要图片".encode())
             return
 
         if name_field.value == "":
             self.send_response(400)
             self.end_headers()
-            self.wfile.write("需要名字")
+            self.wfile.write("需要名字".encode())
             return
         result['name'] = name_field.value
 
         if author_field.value == "":
             self.send_response(400)
             self.end_headers()
-            self.wfile.write("需要作者")
+            self.wfile.write("需要作者".encode())
             return
         result['author'] = author_field.value
 
         if wechat_field.value == "":
             self.send_response(400)
             self.end_headers()
-            self.wfile.write("需要微信")
+            self.wfile.write("需要微信".encode())
             return
         result['wechat'] = wechat_field.value
 
         if email_field.value == "":
             self.send_response(400)
             self.end_headers()
-            self.wfile.write("需要邮箱")
+            self.wfile.write("需要邮箱".encode())
             return
         result['email'] = email_field.value
 
         if school_field.value == "":
             self.send_response(400)
             self.end_headers()
-            self.wfile.write("需要学校")
+            self.wfile.write("需要学校".encode())
             return
         result['school'] = school_field.value
 
         if description_field.value == "":
             self.send_response(400)
             self.end_headers()
-            self.wfile.write("需要描述")
+            self.wfile.write("需要描述".encode())
             return
         result['description'] = description_field.value
 
