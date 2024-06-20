@@ -34,7 +34,7 @@
 	<!-- Wrapper -->
 	<div id="wrapper" class="fade-in">
 
-		<nav id="nav" style="position: absolute; top: 0; width: 100%;"><ul class="links"><li><a href="/index.html">NJAI</a></li><li class="active"><a href="/activity.html">活动与策划</a></li><li><a href="/service.html">服务与支持</a></li><li><a href="/about.html">关于我们</a></li></ul></nav>
+		<nav id="nav" style="position: absolute; top: 0; width: 100%;"><ul class="links"><li><a href="/index.html">NJAI</a></li><li class="active"><a href="/activity.html">摄影比赛</a></li><li><a href="/service.html">服务与支持</a></li><li><a href="/about.html">关于我们</a></li></ul></nav>
 
 		<!-- Intro -->
 		<div id="intro">
@@ -122,10 +122,13 @@
 				.then(response => {
 					if (response.status === 200) {
 						document.getElementById('submitButton').disabled = true;
-						document.getElementById('errorMsg').innerText = "提交成功";
-						return "";
+						document.getElementById('errorMsg').style.color = "green";
+						return "提交成功";
+					} else {
+						document.getElementById('errorMsg').style.color = "red";
+						return response.text();
 					}
-					return response.text();
+
 				})
 				.then(display => {
 					document.getElementById('errorMsg').innerText = display;
