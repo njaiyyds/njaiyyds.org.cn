@@ -166,7 +166,7 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(f"图片缺少exif: {exif_error}".encode())
             return
-        
+
         save_result(result)
 
         # Send a simple HTML response back
@@ -176,6 +176,7 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         self.wfile.write(b"Data received")
 
     def end_headers(self):
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Origin", "*")
         http.server.SimpleHTTPRequestHandler.end_headers(self)
 
