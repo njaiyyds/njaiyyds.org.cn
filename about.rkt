@@ -3,7 +3,7 @@
 (require html-writing)
 (require "common.rkt")
 
-(define (namecard name school intro pic)
+(define (namecard name intro school pic)
   `(div (@ (class "gallery-item"))
         (img (@ (src ,pic) (alt ,name)))
         (div (@ (class "intro"))
