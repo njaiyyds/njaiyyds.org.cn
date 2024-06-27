@@ -106,7 +106,9 @@ class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             'email': None,
             'school': None,
             'description': None,
-            'ip': self.client_address[0],
+            # 'ip': self.client_address[0],
+            # Proxied by Cloudflare
+            'ip': self.headers['CF-Connecting-IP'],
         }
 
         if image_field.filename:
