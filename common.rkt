@@ -6,7 +6,7 @@
 (require racket/path)
 (require racket/date)
 
-;;; Utility functions
+; Utility functions
 
 ;; Function to write a string to a file, creating the parent directory if needed
 (define (write-string-to-file filepath content)
@@ -41,7 +41,7 @@
 (provide use-template write-string-to-file)
 
 
-;;; Common elements
+; Common elements
 
 (define (navbar active)
   (let* ([entries '(("/index.html" "NJAI") ("/activity.html" "摄影比赛") ("/service.html" "服务与支持") ("/about.html" "关于我们"))]
@@ -85,6 +85,16 @@
                     (h1 ,(if (string=? url "") title `(a (@ (href ,url)) ,title))))
             ,content))
 
+; (styled-article-nodate "声音所至，目光所及"
+;                        '((img (@ (src "images/shenyinsuozhi.jpg")
+;                                  (style "max-width: 100%;"))))
+;                        "https://mp.weixin.qq.com/s/2pXB6UU9YYXVIBIBYRFk5Q")
+(define (styled-article-image title img url)
+  `(article (@ (class "post"))
+            (header (@ (class "major"))
+                    (h1 (a (@ (href ,url)) ,title))
+                    (a (@ (href ,url)) (img (@ (src ,img) (style "max-width: 100%;")))))))
+
 (define (cr-footer)
   (let ([current-year-str (number->string (date-year (current-date)))])
     `(div (@ (id "copyright"))
@@ -103,4 +113,4 @@
 (define (common-footer)
   (list (contacts-icon) (cr-footer)))
 
-(provide navbar contacts-icon styled-article styled-article-nodate cr-footer common-footer)
+(provide navbar contacts-icon styled-article styled-article-nodate styled-article-image cr-footer common-footer)
