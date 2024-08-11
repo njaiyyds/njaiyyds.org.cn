@@ -1,10 +1,13 @@
-import http.server
-import socketserver
-import cgi
+from fastapi import FastAPI, File, Form, UploadFile, HTTPException, Request
+from fastapi.responses import PlainTextResponse
+from pydantic import BaseModel
+from pathlib import Path
+from plum.exceptions import UnpackError
 import json
 import uuid
-from pathlib import Path
 import exif
+
+app = FastAPI()
 
 def check_exif(image_data):
     """Check if main exif such as exposure time, aperture, focal length, and ISO are present."""
@@ -56,138 +59,57 @@ def save_result(result, in_dir=Path.home() / 'submit'):
 
     return unique_id
 
-class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-Type", "text/plain")
-        self.end_headers()
-        self.wfile.write(b"NJAIYYDS")
+class FormData(BaseModel):
+    name: str
+    author: str
+    school: str
+    wechat: str
+    email: str
+    description: str
 
-    def do_OPTIONS(self):
-        self.send_response(200, "ok")
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-        self.end_headers()
+@app.post("/upload", response_class=PlainTextResponse)
+async def upload_file(
+    request: Request,
+    name: str = Form(...),
+    author: str = Form(...),
+    school: str = Form(...),
+    wechat: str = Form(...),
+    email: str = Form(...),
+    description: str = Form(...),
+    image: UploadFile = File(...)
+):
+    if not image.filename:
+        raise HTTPException(status_code=400, detail="需要图片")
 
-    def do_POST(self):
-        # Parse the form data posted
-        content_type = self.headers['content-type']
-        if not content_type:
-            self.send_error(400, "Content-Type header is missing")
-            return
-
-        ctype, pdict = cgi.parse_header(content_type)
-        if ctype != 'multipart/form-data':
-            self.send_error(400, "Content-Type is not multipart/form-data")
-            return
-
-        pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
-        pdict['CONTENT-LENGTH'] = int(self.headers['content-length'])
-        form = cgi.FieldStorage(
-            fp=self.rfile,
-            headers=self.headers,
-            environ={'REQUEST_METHOD': 'POST'},
-            keep_blank_values=True
-        )
-
-        # Extracting fields from the form
-        image_field = form['image']
-        name_field = form['name']
-        author_field = form['author']
-        school_field = form['school']
-        wechat_field = form['wechat']
-        email_field = form['email']
-        description_field = form['description']
-
-        result = {
-            'image': (None, None),
-            'name': None,
-            'author': None,
-            'wechat': None,
-            'email': None,
-            'school': None,
-            'description': None,
-            # 'ip': self.client_address[0],
-            # Proxied by Cloudflare
-            'ip': self.headers['CF-Connecting-IP'],
-        }
-
-        if image_field.filename:
-            image_data = image_field.file.read()
-            result['image'] = (image_field.filename, image_data)
-        else:
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write("需要图片".encode())
-            return
-
-        if name_field.value == "":
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write("需要名字".encode())
-            return
-        result['name'] = name_field.value
-
-        if author_field.value == "":
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write("需要作者".encode())
-            return
-        result['author'] = author_field.value
-
-        if wechat_field.value == "":
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write("需要微信".encode())
-            return
-        result['wechat'] = wechat_field.value
-
-        if email_field.value == "":
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write("需要邮箱".encode())
-            return
-        result['email'] = email_field.value
-
-        if school_field.value == "":
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write("需要学校".encode())
-            return
-        result['school'] = school_field.value
-
-        if description_field.value == "":
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write("需要描述".encode())
-            return
-        result['description'] = description_field.value
-
+    image_data = await image.read()
+    
+    x_forwarded_for = request.headers.get('X-Forwarded-For')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0].strip()
+    else:
+        ip = request.client.host
+    
+    result = {
+        'image': (image.filename, image_data),
+        'name': name,
+        'author': author,
+        'wechat': wechat,
+        'email': email,
+        'school': school,
+        'description': description,
+        'ip': ip,
+    }
+    try:
         exif_error = check_exif(result['image'][1])
-        if exif_error:
-            self.send_response(400)
-            self.end_headers()
-            self.wfile.write(f"图片缺少exif: {exif_error}".encode())
-            return
+    except UnpackError as e:
+        raise HTTPException(status_code=400, detail=f"图片格式错误: {repr(e)}")
+    if exif_error:
+        raise HTTPException(status_code=400, detail=f"图片缺少exif: {exif_error}")
 
-        save_result(result)
+    save_result(result)
+    return "Data received"
 
-        # Send a simple HTML response back
-        self.send_response(200)
-        self.send_header("Content-Type", "text/plain")
-        self.end_headers()
-        self.wfile.write(b"Data received")
-
-    def end_headers(self):
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Origin", "*")
-        http.server.SimpleHTTPRequestHandler.end_headers(self)
-
-PORT = 80  # HTTP port
-
-def main():
-    with socketserver.TCPServer(("", PORT), SimpleHTTPRequestHandler) as httpd:
-        print("Serving at port", PORT)
-        httpd.serve_forever()
-
-if __name__ == "__main__":
-    main()
+@app.get("/")
+@app.get("/health")
+async def index():
+    return {"status": "ok", "version": "1"}
